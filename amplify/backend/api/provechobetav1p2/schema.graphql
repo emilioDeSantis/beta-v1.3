@@ -1,0 +1,145 @@
+enum PostType {
+    ORIGINAL
+    REMAKE
+}
+
+type Step {
+    step: String!
+}
+
+type Chef
+    @model 
+    @key(name: "byUsername", fields: ["username"])
+    {
+    id: ID!
+    username: String!
+    image: String!
+    biography: String!
+    n_followers: Int
+    n_following: Int
+    n_remakes: Int
+    followers: [Follow] @connection(keyName: "byFollowing", fields: ["id"]) 
+    following: [Follow] @connection(keyName: "byFollowedby", fields: ["id"])
+    # stashes: [Stash] @connection(keyName: "byChef", fields: ["id"])
+    # tips: [Tip] @connection(keyName: "byChef", fields: ["id"])
+    # likes: [Like] @connection(keyName: "byChef", fields: ["id"])
+    # comments: [Comment] @connection(keyName: "byChef", fields: ["id"])
+    recipes: [Recipe] @connection(keyName: "byChef", fields: ["id"])
+    posts: [Post] @connection(keyName: "byChef", fields: ["id"])
+}
+
+type Recipe 
+    @model 
+    @key(name: "byChef", fields: ["chefID"])
+    @key(name: "byPost", fields: ["postID"])
+    {
+    id: ID!
+    title: String!
+    image: String!
+    serves: Int!
+    cook_time: Int!
+    procedure: [Step]
+    n_tips: Int
+    chefID: ID!
+    postID: ID!
+    # stashes: [Stash] @connection(keyName: "byRecipe", fields: ["id"])
+    # tips: [Tip] @connection(keyName: "byRecipe", fields: ["id"])
+    chef: Chef! @connection(fields: ["chefID"])
+}
+
+type Post 
+    @model
+    @key(name: "byChef", fields: ["chefID"]) 
+    @key(name: "byDate", fields: ["createdAt"])     
+    {
+    id: ID!
+    title: String!
+    caption: String!
+    image: String!
+    type: PostType!
+    createdAt: AWSDateTime!
+    n_likes: Int
+    n_comments: Int
+    n_tips: Int
+    chefID: ID!
+    hashtags: [String]
+    # tips: [Tip] @connection(keyName: "byPost", fields: ["id"])
+    # likes: [Like] @connection(keyName: "byPost", fields: ["id"])
+    # comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+    chef: Chef! @connection(fields: ["chefID"])
+    recipe: Recipe @connection
+}
+
+type Follow 
+    @model 
+    @key(name: "byFollowing", fields: ["followingID", "followerID"])
+    @key(name: "byFollowedby", fields: ["followerID", "followingID"])
+    {
+    id: ID!
+    followingID: ID!
+    followerID: ID!
+    ## following: Chef! @connection(fields: ["followingID"])
+    ## follower: Chef! @connection(fields: ["followerID"])
+}
+
+type Stash 
+    @model 
+    # @key(name: "byChef", fields: ["chefID"])
+    # @key(name: "byRecipe", fields: ["recipeID"])
+    {
+    id: ID!
+    chefID: ID!
+    recipeID: ID!
+    # chef: Chef! @connection(fields: ["chefID"])
+    # recipe: Recipe! @connection(fields: ["recipeID"])
+}
+
+type Tip 
+    @model 
+    # @key(name: "byChef", fields: ["chefID"])
+    # @key(name: "byRecipe", fields: ["recipeID"])
+    # @key(name: "byPost", fields: ["postID"])
+    {
+    id: ID!
+    text: String!
+    chefID: ID!
+    recipeID: ID!
+    postID: ID!
+    # chef: Chef! @connection(fields: ["chefID"])
+    # recipe: Recipe! @connection(fields: ["recipeID"])
+    # post: Post! @connection(fields: ["postID"])
+    # remake: Post! @connection
+}
+
+type Like 
+    @model 
+    # @key(name: "byChef", fields: ["chefID"])
+    # @key(name: "byPost", fields: ["postID"])
+    {
+    id: ID!
+    chefID: ID!
+    postID: ID!
+    # chef: Chef! @connection(fields: ["chefID"])
+    # post: Post! @connection(fields: ["postID"])
+}
+
+type Comment 
+    @model 
+    # @key(name: "byChef", fields: ["chefID"])
+    # @key(name: "byPost", fields: ["postID"])
+    {
+    id: ID!
+    text: String!
+    chefID: ID!
+    postID: ID!
+    # chef: Chef! @connection(fields: ["chefID"])
+    # post: Post! @connection(fields: ["postID"])
+}
+
+type Hashtag 
+    @model
+    @key(name: "byName", fields: ["name"]) 
+    {
+    id: ID!
+    name: String!
+}

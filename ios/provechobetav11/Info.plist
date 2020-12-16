@@ -39,6 +39,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+    <key>NSPhotoLibraryUsageDescription</key>
+	<string>grant access to photo library</string>
+    <key>NSCameraUsageDescription</key>
+	<string>grant access to camera</string>
 	<key>UILaunchStoryboardName</key>
 	<string>SplashScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

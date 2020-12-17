@@ -17,6 +17,9 @@ import { StackActions, useNavigationState } from '@react-navigation/native';
 import * as storage from '../functions/storage'
 import Stream from '../components/Stream'
 import style from '../style';
+import { v4 as uuidv4 } from 'uuid';
+
+import * as global from '../functions/global'
 
 
 const RecipeSearchScreen = (props) => {
@@ -25,15 +28,7 @@ const RecipeSearchScreen = (props) => {
         const db_data = await DataStore.query(Post)
         console.log('data... ',db_data);
         const posts = await storage.format_posts(db_data)
-        let tri_post = []
-        let tri_posts = []
-        for (var i = 0; i < posts.length; i++) {
-            tri_post.push(posts[i])
-            if((i+1)%3==0){
-                tri_posts.push(tri_post)
-                tri_post = []
-            }
-        }
+        const tri_posts = global.format_tri_posts(posts)
         return tri_posts
     }
 

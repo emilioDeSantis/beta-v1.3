@@ -37,6 +37,63 @@ function RecipeButton(props) {
     );
 }
 
+const LikeButton = (props) => {
+    return(
+        <View style={style.like_button_container}>
+            <TouchableOpacity 
+                style= {style.like_button}
+                onPress={() => alert('like')}
+            >
+                <Text>like</Text>
+            </TouchableOpacity> 
+            <TouchableOpacity 
+                style= {style.number}
+                onPress={() => alert('like')}
+            >
+                <Text style={style.number_text}>422</Text>
+            </TouchableOpacity> 
+        </View>
+    )
+}
+
+const CommentButton = (props) => {
+    return(
+        <View style={style.comment_button_container}>
+            <TouchableOpacity 
+                style= {style.comment_button}
+                onPress={() => alert('comment')}
+            >
+                <Text>comment</Text>
+            </TouchableOpacity> 
+            <TouchableOpacity 
+                style= {style.number}
+                onPress={() => alert('comment')}
+            >
+                <Text style={style.number_text}>142</Text>
+            </TouchableOpacity> 
+        </View>
+    )
+}
+
+const TipButton = (props) => {
+    return(
+        <View style={style.tip_button_container}>
+            <TouchableOpacity 
+                style= {style.tip_button}
+                onPress={() => alert('tip')}
+            >
+                <Text>tip</Text>
+            </TouchableOpacity> 
+            <TouchableOpacity 
+                style= {style.number}
+                onPress={() => alert('tip')}
+            >
+                <Text style={style.number_text}>127</Text>
+            </TouchableOpacity> 
+        </View>
+    )
+}
+
 function Post(props) {
 
     console.log('props... ', props);
@@ -51,6 +108,9 @@ function Post(props) {
             </Text>
             <RecipeButton {...props} image={props.image}/>
             <ChefThumbnail chef={props.chef}/>
+            <LikeButton/>
+            <CommentButton/>
+            <TipButton/>
         </View>
     );
 }

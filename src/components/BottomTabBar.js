@@ -1,5 +1,6 @@
+import { useLinkProps } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import style from '../style';
 
 const BottomTabBar = ({ state, descriptors, navigation }) => {
@@ -45,9 +46,36 @@ const BottomTabBar = ({ state, descriptors, navigation }) => {
                         onLongPress={onLongPress}
                         style={style.bottom_bar_button}
                     >
-                        <Text style={{ color: isFocused ? '#f98' : '#333536' }}>
-                            {label}
-                        </Text>
+                    {label == 'home' && isFocused && 
+                        <Image
+                            style={{width:30, height: 30,}}
+                            source={require('../assets/icons/home_icon_yellow.png')}
+                        />}
+                    {label == 'home' && !isFocused && 
+                        <Image
+                            style={{width:20, height: 20,}}
+                            source={require('../assets/icons/home_icon_yellow.png')}
+                        />}
+                    {label == 'create' && isFocused && 
+                        <Image
+                            style={{width:30, height: 30,}}
+                            source={require('../assets/icons/create_icon_yellow.png')}
+                        />}
+                    {label == 'create' && !isFocused && 
+                        <Image
+                            style={{width:20, height: 20,}}
+                            source={require('../assets/icons/create_icon_yellow.png')}
+                        />}
+                    {label == 'profile' && isFocused && 
+                        <Image
+                            style={{width:30, height: 30,}}
+                            source={require('../assets/icons/profile_icon_yellow.png')}
+                        />}
+                    {label == 'profile' && !isFocused && 
+                        <Image
+                            style={{width:20, height: 20,}}
+                            source={require('../assets/icons/profile_icon_yellow.png')}
+                        />}
                     </TouchableOpacity>
                 );
             })}

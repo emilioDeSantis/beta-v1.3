@@ -22,7 +22,7 @@ function RecipeButton(props) {
 
     return (
         <TouchableOpacity 
-            style= {style.recipe_button}
+            style= {style.tri_recipe_button}
             onPress={() => go_to_recipe(props)}
         >
             <Image
@@ -37,23 +37,15 @@ function RecipeButton(props) {
     );
 }
 
-function Post(props) {
+function TriPost(props) {
 
-    console.log('props... ', props);
+    console.log('propsgff... ', props);
     return (
         <View style={style.tri_post_row}>
-            {props.forEach(post => {
+            {props.tri_post.map(post => {
                 return (
                     <View style={style.tri_post}>
-                        <Text style={{
-                            position: 'absolute',
-                            top: 50,
-                            left: 140,
-                        }}>
-                            {props[0].chef.username}
-                        </Text>
-                        <RecipeButton {...props} image={props.image}/>
-                        <ChefThumbnail chef={props.chef}/>
+                        <RecipeButton {...post} image={post.image}/>
                     </View>
                 )
             })}
@@ -61,4 +53,4 @@ function Post(props) {
     )
 }
 
-export default Post;
+export default TriPost;

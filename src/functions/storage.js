@@ -47,3 +47,23 @@ export const format_posts = async (db_data) => {
     })
     return posts
 }
+
+const format_chef = async (item) => {
+    const chef_image = await Storage.get(item.image)
+    delete item.image
+    const chef = {
+        ...item,
+        image: chef_image,
+        key: uuidv4(),
+    }
+    return chef
+}
+const getChefs = async (list) => {
+    return Promise.all(list.map(chef => format_chef(chef)))
+}
+export const format_chefs = async (db_data) => {
+    const chefs = await getChefs(db_data).then((data) => {
+        return data
+    })
+    return chefs
+}

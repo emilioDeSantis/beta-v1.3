@@ -15,25 +15,26 @@ Amplify.configure({
 
 import { StackActions, useNavigationState } from '@react-navigation/native';
 
+import * as storage from '../functions/storage'
 import Stream from '../components/Stream'
+import style from '../style';
+import { v4 as uuidv4 } from 'uuid';
+
+import * as global from '../functions/global'
+
 
 const ChefSearchScreen = (props) => {
 
     const fetchChefs = async (page, limit) => {
-        const data = await DataStore.query(Chef)
-        console.log('data....',data);
-        const chefs = data.map((chef) => {
-            chef.key = chef.id
-            return chef
-        })
+        const db_data = await DataStore.query(Chef)
+        console.log('data... ',db_data);
+        const chefs = await storage.format_chefs(db_data)
         return chefs
     }
 
-    fetchChefs()
-
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            {/* <Stream Article={ChefComp} fetchArticles={fetchChefs} search={props.search} /> */}
+        <View style={style.feed_container}>
+            <Stream Article={ChefComp} fetchArticles={fetchChefs} search={props.search}/>
         </View>
     );
 }

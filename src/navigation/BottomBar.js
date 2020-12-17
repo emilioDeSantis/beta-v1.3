@@ -13,9 +13,15 @@ const Tab = createBottomTabNavigator();
 function BottomBar ({ navigation }) {
     return (
         <Tab.Navigator tabBar={props => <BottomTabBar {...props} />}>
-            <Tab.Screen name="home" component={HomeScreen} />
-            <Tab.Screen name="create" component={CreateScreen} />
-            <Tab.Screen name="profile" component={ProfileScreen} />
+            <Tab.Screen name="home">
+                {(props) => <HomeScreen {...props} />}
+            </Tab.Screen>
+            <Tab.Screen name="create">
+                {(props) => <CreateScreen {...props} />}
+            </Tab.Screen>
+            <Tab.Screen name="profile">
+                {(props) => <ProfileScreen {...props} />}
+            </Tab.Screen>
         </Tab.Navigator>
     );
 }

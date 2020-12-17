@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useNavigationState } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Amplify from 'aws-amplify';
@@ -18,10 +18,18 @@ Amplify.configure({
 import { useUser, useSetUser } from '../context'
 
 import AuthenticationScreen from './AuthenticationScreen'
+
+import * as storage from '../functions/storage'
+import * as global from '../functions/global'
 import BackButton from '../components/BackButton'
 import NotificationsScreen from './NotificationsScreen'
 import { AuthenticationDetails } from 'amazon-cognito-identity-js';
 import style from '../style'
+import ChefTabBar from '../components/ChefTabBar'
+import Stream from '../components/Stream'
+import TriPost from '../components/TriPost'
+
+import { v4 as uuidv4 } from 'uuid';
 
 const Settings = ({ navigation }) => {
     return (
@@ -37,31 +45,69 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
-const All = () => {
+const All = (props) => {
+
+    const fetchPosts = async (page, limit) => {
+        const db_data = await DataStore.query(Post)
+        console.log('data... ',db_data);
+        const posts = await storage.format_posts(db_data)
+        const tri_posts = global.format_tri_posts(posts)
+        return tri_posts
+    }
+
     return (
-        <View style={style.container}>
-            <Text>all</Text>
+        <View style={style.feed_container}>
+            <Stream Article={TriPost} fetchArticles={fetchPosts}/>
         </View>
-    )
+    );
 }
 
-const Originals = () => {
+
+const Originals = (props) => {
+
+    const fetchPosts = async (page, limit) => {
+        const db_data = await DataStore.query(Post)
+        console.log('data... ',db_data);
+        const posts = await storage.format_posts(db_data)
+        const tri_posts = global.format_tri_posts(posts)
+        return tri_posts
+    }
+
     return (
-        <Text>originals</Text>
-    )
+        <View style={style.feed_container}>
+            <Stream Article={TriPost} fetchArticles={fetchPosts}/>
+        </View>
+    );
 }
 
-const Stash = () => {
+const Stash = (props) => {
+
+    const fetchPosts = async (page, limit) => {
+        const db_data = await DataStore.query(Post)
+        console.log('data... ',db_data);
+        const posts = await storage.format_posts(db_data)
+        const tri_posts = global.format_tri_posts(posts)
+        return tri_posts
+    }
+
     return (
-        <Text>stash</Text>
-    )
+        <View style={style.feed_container}>
+            <Stream Article={TriPost} fetchArticles={fetchPosts}/>
+        </View>
+    );
 }
 
 const ChefTabs = () => (
-    <Tab.Navigator tabBarOptions={{style: { position: 'absolute', marginBottom: '70%' }}} initialRouteName={'all'}>
-        <Tab.Screen name="all" component={All} />
-        <Tab.Screen name="originals" component={Originals} />
-        <Tab.Screen name="stash" component={Stash} />
+    <Tab.Navigator tabBar={props => <ChefTabBar {...props} />} initialRouteName={'all'}>
+        <Tab.Screen name="all">
+            {(props) => <All {...props} />}
+        </Tab.Screen>
+        <Tab.Screen name="originals">
+            {(props) => <Originals {...props} />}
+        </Tab.Screen>
+        <Tab.Screen name="stash">
+            {(props) => <Stash {...props} />}
+        </Tab.Screen>
     </Tab.Navigator>
 )
 

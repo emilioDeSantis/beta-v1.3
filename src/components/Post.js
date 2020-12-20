@@ -1,29 +1,35 @@
 import * as React from 'react';
 import { View, Text, Button, Image, TouchableOpacity } from 'react-native';
-import { StackActions, useNavigation  } from '@react-navigation/native';
+import { StackActions, useNavigation, useNavigationBuilder, NavigationActions } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import style from '../style';
+import Amplify, { Storage } from 'aws-amplify'
+import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore'
+import { PostType, Chef, Recipe, Post, Tip, Comment, Like, Stash, Follow } from '../models'
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
+import * as storage from '../functions/storage'
+import * as global from '../functions/global'
+
+import awsconfig from '../aws-exports';
+Amplify.configure({
+    ...awsconfig,
+    Analytics: {
+        disabled: true,
+    },
+});
 
 import ChefThumbnail from './ChefThumbnail'
 
-
 function RecipeButton(props) {
-
-    // console.log('post!!!... ',props);
 
     const navigation = useNavigation();
 
-    const go_to_recipe = (post) => {
-        console.log('post!!!... ',post);
-        //fix db so that post links to recipe
-        //get recipe
-        //navigate to recipe paghe woth data
-        //have the recpe page load its own recipe and just send the post
-    }
 
     return (
         <TouchableOpacity 
             style= {style.recipe_button}
-            onPress={() => go_to_recipe(props)}
+            onPress={() => global.go_to_recipe(props,navigation)}
         >
             <Image
                 style = {{
@@ -38,6 +44,8 @@ function RecipeButton(props) {
 }
 
 const LikeButton = (props) => {
+    const navigation = useNavigation()
+
     return(
         <View style={style.like_button_container}>
             <TouchableOpacity 
@@ -48,7 +56,9 @@ const LikeButton = (props) => {
             </TouchableOpacity> 
             <TouchableOpacity 
                 style= {style.number}
-                onPress={() => alert('like')}
+                onPress={() => {
+                    navigation.navigate('like modal', 'likes')
+                }}
             >
                 <Text style={style.number_text}>422</Text>
             </TouchableOpacity> 
@@ -57,6 +67,7 @@ const LikeButton = (props) => {
 }
 
 const CommentButton = (props) => {
+    const navigation = useNavigation()
     return(
         <View style={style.comment_button_container}>
             <TouchableOpacity 
@@ -67,7 +78,9 @@ const CommentButton = (props) => {
             </TouchableOpacity> 
             <TouchableOpacity 
                 style= {style.number}
-                onPress={() => alert('comment')}
+                onPress={() => {
+                    navigation.navigate('like modal', 'comments')
+                }}
             >
                 <Text style={style.number_text}>142</Text>
             </TouchableOpacity> 
@@ -76,6 +89,7 @@ const CommentButton = (props) => {
 }
 
 const TipButton = (props) => {
+    const navigation = useNavigation()
     return(
         <View style={style.tip_button_container}>
             <TouchableOpacity 
@@ -86,7 +100,9 @@ const TipButton = (props) => {
             </TouchableOpacity> 
             <TouchableOpacity 
                 style= {style.number}
-                onPress={() => alert('tip')}
+                onPress={() => {
+                    navigation.navigate('like modal', 'tips')
+                }}
             >
                 <Text style={style.number_text}>127</Text>
             </TouchableOpacity> 
@@ -94,7 +110,7 @@ const TipButton = (props) => {
     )
 }
 
-function Post(props) {
+function PostComp(props) {
 
     console.log('props... ', props);
     return (
@@ -115,4 +131,4 @@ function Post(props) {
     );
 }
 
-export default Post;
+export default PostComp;

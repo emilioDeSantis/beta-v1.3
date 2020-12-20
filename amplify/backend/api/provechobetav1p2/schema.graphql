@@ -41,10 +41,10 @@ type Recipe
     procedure: [Step]
     n_tips: Int
     chefID: ID!
-    postID: ID!
+    postID: ID
     # stashes: [Stash] @connection(keyName: "byRecipe", fields: ["id"])
     # tips: [Tip] @connection(keyName: "byRecipe", fields: ["id"])
-    chef: Chef! @connection(fields: ["chefID"])
+    chef: Chef! @connection
 }
 
 type Post 
@@ -66,7 +66,7 @@ type Post
     # tips: [Tip] @connection(keyName: "byPost", fields: ["id"])
     # likes: [Like] @connection(keyName: "byPost", fields: ["id"])
     # comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
-    chef: Chef! @connection(fields: ["chefID"])
+    chef: Chef! @connection
     recipe: Recipe @connection
 }
 
@@ -90,8 +90,8 @@ type Stash
     id: ID!
     chefID: ID!
     recipeID: ID!
-    # chef: Chef! @connection(fields: ["chefID"])
-    # recipe: Recipe! @connection(fields: ["recipeID"])
+    # chef: Chef! @connection
+    # recipe: Recipe! @connection
 }
 
 type Tip 
@@ -105,9 +105,9 @@ type Tip
     chefID: ID!
     recipeID: ID!
     postID: ID!
-    # chef: Chef! @connection(fields: ["chefID"])
-    # recipe: Recipe! @connection(fields: ["recipeID"])
-    # post: Post! @connection(fields: ["postID"])
+    # chef: Chef! @connection
+    # recipe: Recipe! @connection
+    # post: Post! @connection
     # remake: Post! @connection
 }
 
@@ -119,8 +119,8 @@ type Like
     id: ID!
     chefID: ID!
     postID: ID!
-    # chef: Chef! @connection(fields: ["chefID"])
-    # post: Post! @connection(fields: ["postID"])
+    # chef: Chef! @connection
+    # post: Post! @connection
 }
 
 type Comment 
@@ -132,8 +132,8 @@ type Comment
     text: String!
     chefID: ID!
     postID: ID!
-    # chef: Chef! @connection(fields: ["chefID"])
-    # post: Post! @connection(fields: ["postID"])
+    # chef: Chef! @connection
+    # post: Post! @connection
 }
 
 type Hashtag 

@@ -84,17 +84,6 @@ function CreateScreen() {
                     )
                 })
 
-                const post = await DataStore.save(
-                    new Post({
-                        title,
-                        caption,
-                        image: key,
-                        type: PostType.ORIGINAL,
-                        chefID: chef.id,
-                        chef,
-                        hashtags: hashtags_input,
-                    })
-                )
                 const recipe = await DataStore.save(
                     new Recipe({
                         title,
@@ -104,14 +93,25 @@ function CreateScreen() {
                         //igredients
                         procedure: [{step: 'uyf'},{step: 'khli'}],
                         chefID: chef.id,
-                        postID: post.id,
                         chef,
+                    })
+                )
+                const post = await DataStore.save(
+                    new Post({
+                        title,
+                        caption,
+                        image: key,
+                        type: PostType.ORIGINAL,
+                        chefID: chef.id,
+                        chef,
+                        hashtags: hashtags_input,
+                        recipe,
                     })
                 )
                 //is this working?
                 await DataStore.save(
-                    Post.copyOf(post, updated => {
-                        updated.recipe = recipe
+                    Recipe.copyOf(recipe, updated => {
+                        updated.postID = post.id
                     })
                 )
             } else {

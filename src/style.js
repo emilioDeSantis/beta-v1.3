@@ -224,6 +224,65 @@ const style = StyleSheet.create({
         top: 5,
         left: 5,
     },
+    like_back_button: {
+        height,
+        width,
+        backgroundColor: '#fff0',
+        position: 'absolute',
+    },
+    like_modal_container: {
+        flex: 1,
+        backgroundColor: '#fff0',
+    },
+    like_modal: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        top: '90%',
+        backgroundColor: '#fff0',
+    },
+    like_modal_tab_bar: {
+        height:60,
+        flexDirection: 'row',
+        backgroundColor: '#f98',
+        position: 'absolute',
+        width: '100%',
+        borderBottomColor: '#dddfe0',
+        borderBottomWidth: .3,
+    },
+    like_modal_tab_bar_button: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
+    stash_button: {
+        position: 'absolute',
+        backgroundColor: '#fff',
+        width: 100,
+        height: '100%',
+        paddingTop: 55,
+        paddingRight: 30,
+        right: 0,
+    },
+    instructions_tab_bar: {
+        height:60,
+        flexDirection: 'row',
+        backgroundColor: '#f98',
+        position: 'absolute',
+        width: '100%',
+        borderBottomColor: '#dddfe0',
+        borderBottomWidth: .3,
+    },
+    instructions_tab_bar_button: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
 });
 
 export default style

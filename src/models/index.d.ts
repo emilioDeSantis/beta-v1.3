@@ -42,7 +42,8 @@ export declare class Recipe {
   readonly cook_time: number;
   readonly procedure?: (Step | null)[];
   readonly n_tips?: number;
-  readonly postID: string;
+  readonly chefID: string;
+  readonly postID?: string;
   readonly chef: Chef;
   constructor(init: ModelInit<Recipe>);
   static copyOf(source: Recipe, mutator: (draft: MutableModel<Recipe>) => MutableModel<Recipe> | void): Recipe;
@@ -58,6 +59,7 @@ export declare class Post {
   readonly n_likes?: number;
   readonly n_comments?: number;
   readonly n_tips?: number;
+  readonly chefID: string;
   readonly hashtags?: (string | null)[];
   readonly chef: Chef;
   readonly recipe?: Recipe;

@@ -1,6 +1,22 @@
+import * as React from 'react';
+import { View, Text, Button, Image, TouchableOpacity } from 'react-native';
+import { StackActions, useNavigation, useNavigationBuilder, NavigationActions } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import style from '../style';
+import Amplify, { Storage } from 'aws-amplify'
+import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore'
+import { PostType, Chef, Recipe, Post, Tip, Comment, Like, Stash, Follow } from '../models'
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import * as storage from './storage'
 
-
+import awsconfig from '../aws-exports';
+Amplify.configure({
+    ...awsconfig,
+    Analytics: {
+        disabled: true,
+    },
+});
 
 export const toArray = (text) => {
     text = text.replace('  ', ' ')
@@ -38,4 +54,11 @@ export const format_hashtags = (hashtags) => {
         return hashtag
     })
     return hashtags_with_key
+}
+
+export const go_to_recipe = async(post,navigation) => {
+    const db_data = await DataStore.query(Chef, post.recipe.chefID);
+    const chef = await storage.format_chef(db_data)
+    const recipe = await storage.format_chef(post.recipe)
+    navigation.navigate('recipe',{recipe, chef})
 }

@@ -91,7 +91,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "chef"
+                        "associatedWith": "chefID"
                     }
                 },
                 "posts": {
@@ -105,7 +105,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "chef"
+                        "associatedWith": "chefID"
                     }
                 }
             },
@@ -236,11 +236,18 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "chefID": {
+                    "name": "chefID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "postID": {
                     "name": "postID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "chef": {
@@ -253,7 +260,7 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "chefID"
+                        "targetName": "recipeChefId"
                     }
                 }
             },
@@ -352,6 +359,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "chefID": {
+                    "name": "chefID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "hashtags": {
                     "name": "hashtags",
                     "isArray": true,
@@ -370,7 +384,7 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "chefID"
+                        "targetName": "postChefId"
                     }
                 },
                 "recipe": {
@@ -631,5 +645,5 @@ export const schema = {
             }
         }
     },
-    "version": "7f0683a2160d592ae7b5925697e5544e"
+    "version": "9f0c6074112d9d6c6c626ecd18c5ff89"
 };

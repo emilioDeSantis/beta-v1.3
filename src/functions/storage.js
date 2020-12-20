@@ -48,7 +48,7 @@ export const format_posts = async (db_data) => {
     return posts
 }
 
-const format_chef = async (item) => {
+export const format_chef = async (item) => {
     const chef_image = await Storage.get(item.image)
     delete item.image
     const chef = {

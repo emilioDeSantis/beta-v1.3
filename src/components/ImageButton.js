@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import * as React from 'react';
 import { View, Text, Button, TouchableOpacity, Image  } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -38,7 +40,7 @@ function pick_image(setUri, is_profile_picture) {
         height,
         cropping: true
     }).then(image => {
-        console.log(image);
+        // console.log(image);
         setUri(image.path)
     });
 }
@@ -56,7 +58,7 @@ function take_image(setUri, is_profile_picture) {
         height,
         cropping: true
     }).then(image => {
-        console.log(image);
+        // console.log(image);
         setUri(image.path)
     });
 }  

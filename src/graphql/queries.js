@@ -117,8 +117,10 @@ export const getChef = /* GraphQL */ `
           n_likes
           n_comments
           n_tips
+          rating
           chefID
           hashtags
+          ingredientList
           _version
           _deleted
           _lastChangedAt
@@ -346,8 +348,14 @@ export const syncPosts = /* GraphQL */ `
         n_likes
         n_comments
         n_tips
+        rating
         chefID
         hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
         chef {
           id
           username
@@ -399,8 +407,14 @@ export const getPost = /* GraphQL */ `
       n_likes
       n_comments
       n_tips
+      rating
       chefID
       hashtags
+      ingredientList
+      ingredients {
+        quantity
+        type
+      }
       chef {
         id
         username
@@ -487,8 +501,14 @@ export const listPosts = /* GraphQL */ `
         n_likes
         n_comments
         n_tips
+        rating
         chefID
         hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
         chef {
           id
           username
@@ -607,12 +627,45 @@ export const syncStashes = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         chefID
-        recipeID
+        postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
@@ -624,12 +677,94 @@ export const getStash = /* GraphQL */ `
   query GetStash($id: ID!) {
     getStash(id: $id) {
       id
+      createdAt
       chefID
-      recipeID
+      postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -643,12 +778,45 @@ export const listStashs = /* GraphQL */ `
     listStashs(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        createdAt
         chefID
-        recipeID
+        postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
@@ -671,14 +839,81 @@ export const syncTips = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         text
         chefID
         recipeID
         postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        remake {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
@@ -690,14 +925,180 @@ export const getTip = /* GraphQL */ `
   query GetTip($id: ID!) {
     getTip(id: $id) {
       id
+      createdAt
       text
       chefID
       recipeID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      recipe {
+        id
+        title
+        image
+        serves
+        cook_time
+        procedure {
+          step
+        }
+        n_tips
+        chefID
+        postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      remake {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -711,14 +1112,81 @@ export const listTips = /* GraphQL */ `
     listTips(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        createdAt
         text
         chefID
         recipeID
         postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        remake {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
@@ -741,12 +1209,45 @@ export const syncLikes = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         chefID
         postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
@@ -758,12 +1259,94 @@ export const getLike = /* GraphQL */ `
   query GetLike($id: ID!) {
     getLike(id: $id) {
       id
+      createdAt
       chefID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -777,12 +1360,45 @@ export const listLikes = /* GraphQL */ `
     listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        createdAt
         chefID
         postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
@@ -805,13 +1421,46 @@ export const syncComments = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         text
         chefID
         postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
@@ -823,13 +1472,95 @@ export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
       id
+      createdAt
       text
       chefID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -843,13 +1574,46 @@ export const listComments = /* GraphQL */ `
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        createdAt
         text
         chefID
         postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          title
+          caption
+          image
+          type
+          createdAt
+          n_likes
+          n_comments
+          n_tips
+          rating
+          chefID
+          hashtags
+          ingredientList
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
@@ -904,6 +1668,67 @@ export const listHashtags = /* GraphQL */ `
     $nextToken: String
   ) {
     listHashtags(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncIngredients = /* GraphQL */ `
+  query SyncIngredients(
+    $filter: ModelIngredientFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncIngredients(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getIngredient = /* GraphQL */ `
+  query GetIngredient($id: ID!) {
+    getIngredient(id: $id) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listIngredients = /* GraphQL */ `
+  query ListIngredients(
+    $filter: ModelIngredientFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listIngredients(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         name

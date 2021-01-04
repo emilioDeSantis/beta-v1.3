@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import style from '../style';
@@ -44,8 +46,9 @@ const SearchTabBar = ({ state, descriptors, navigation }) => {
                         onPress={onPress}
                         onLongPress={onLongPress}
                         style={style.search_tab_bar_button}
+                        activeOpacity={1}
                     >
-                        <Text style={{ color: isFocused ? '#f98' : '#333536' }}>
+                        <Text style={[isFocused ? style.yellow_text : style.dark_text, style.medium_text_size]}>
                             {label}
                         </Text>
                     </TouchableOpacity>

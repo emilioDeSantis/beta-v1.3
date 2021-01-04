@@ -1,29 +1,28 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import  React, { useState } from 'react';
 import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import style from '../style';
 
 function SearchBar(props) {
 
     const navigation = useNavigation();
 
     return (
-        <View style={{ top: 0, height: 110, alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+        <View style={style.search_bar_header}>
             <TextInput
-                style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+                style={style.search_bar}
                 onChangeText={text => props.setSearch(text)}
                 onSubmitEditing={() => props.on_return()}
                 placeholder={'search'}
                 value={props.search}
             />
             <TouchableOpacity
-                style={{
-                    height: 40,
-                    width: 60,
-                    borderRadius: 50,
-                    backgroundColor: '#3b9'
-                }}
+                style={style.search_bar_back}
                 onPress={() => navigation.navigate('top bar')}
+                activeOpacity={1}
             >
                 <Text>back</Text>
             </TouchableOpacity>

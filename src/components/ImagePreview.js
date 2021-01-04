@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import React, { useState } from 'react';
 import { View, Text, Button, ScrollView, TouchableOpacity, Image } from 'react-native';
 

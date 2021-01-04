@@ -1,7 +1,15 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import { useLinkProps } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import style from '../style';
+import CreateIcon from '../assets/icons/create_icon.js'
+import CreateFilled from '../assets/icons/create_filled.js'
+import HomeIcon from '../assets/icons/home_icon.js'
+import HomeFilled from '../assets/icons/home_filled.js'
+import ProfileIcon from '../assets/icons/profile_icon.js'
+import ProfileFilled from '../assets/icons/profile_filled.js'
 
 const BottomTabBar = ({ state, descriptors, navigation }) => {
     return (
@@ -45,37 +53,20 @@ const BottomTabBar = ({ state, descriptors, navigation }) => {
                         onPress={onPress}
                         onLongPress={onLongPress}
                         style={style.bottom_bar_button}
+                        activeOpacity={1}
                     >
                     {label == 'home' && isFocused && 
-                        <Image
-                            style={{width:30, height: 30,}}
-                            source={require('../assets/icons/home_icon_yellow.png')}
-                        />}
+                        <HomeFilled/>}
                     {label == 'home' && !isFocused && 
-                        <Image
-                            style={{width:20, height: 20,}}
-                            source={require('../assets/icons/home_icon_yellow.png')}
-                        />}
+                        <HomeIcon/>}
                     {label == 'create' && isFocused && 
-                        <Image
-                            style={{width:30, height: 30,}}
-                            source={require('../assets/icons/create_icon_yellow.png')}
-                        />}
+                        <CreateFilled/>}
                     {label == 'create' && !isFocused && 
-                        <Image
-                            style={{width:20, height: 20,}}
-                            source={require('../assets/icons/create_icon_yellow.png')}
-                        />}
+                        <CreateIcon/>}
                     {label == 'profile' && isFocused && 
-                        <Image
-                            style={{width:30, height: 30,}}
-                            source={require('../assets/icons/profile_icon_yellow.png')}
-                        />}
+                        <ProfileFilled/>}
                     {label == 'profile' && !isFocused && 
-                        <Image
-                            style={{width:20, height: 20,}}
-                            source={require('../assets/icons/profile_icon_yellow.png')}
-                        />}
+                        <ProfileIcon/>}
                     </TouchableOpacity>
                 );
             })}

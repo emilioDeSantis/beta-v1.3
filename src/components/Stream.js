@@ -1,11 +1,13 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import React, {useState, useEffect, useCallback} from 'react';
-import { View, Text, Button, FlatList } from 'react-native';
+import { View, Text, Button, FlatList, SectionList } from 'react-native';
 
 import { useUser, useSetUser } from '../context'
 
 function useArticles(fetchArticles) {
     const user = useUser()
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [shouldFetch, setShouldFetch] = useState(true);
     const [articles, setArticles] = useState([]);
   
@@ -35,6 +37,8 @@ function useArticles(fetchArticles) {
 
 const Stream = (props) => {
 
+    const user = useUser()
+
     const [articles, fetchMore, setArticles, setPage] = useArticles(props.fetchArticles)
 
     // console.log('articles.. ', articles);
@@ -46,9 +50,8 @@ const Stream = (props) => {
     },[props.search])
 
     const renderItem = ({ item, index }) => {
-        // console.log('item... ',item.chef);
         return (
-            props.Article(item)
+            props.Article(item, user, props.is_rotated, props.article_props)
         );
     };
 
@@ -56,10 +59,14 @@ const Stream = (props) => {
         <View style={{ flex: 1 , }}>
             <FlatList
                 horizontal={props.horizontal}
+                // extraData={selected}
                 data={articles}
                 renderItem={renderItem}
+                keyExtractor={(item, index) => item.key}
                 onEndReachedThreshold={0.9}
                 onEndReached={fetchMore}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator ={false}
             />
         </View>
     )

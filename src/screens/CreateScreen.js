@@ -1,5 +1,8 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import React, { useState } from 'react';
 import { View, Text, Button, ScrollView, TouchableOpacity, Image, TextInput } from 'react-native';
+import { useNavigation, useRoute, useNavigationState } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import Amplify from 'aws-amplify';
@@ -23,19 +26,23 @@ import style from '../style'
 
 import { useUser, useSetUser } from '../context'
 import TopScreen from './TopScreen';
+import Header from '../components/Header'
 
 function CreateScreen() {
+
+    const route = useRoute();
 
     const [uri, setUri] = useState(null)
     const [isOriginal, setIsOriginal] = useState(true)
     const user = useUser()
-    console.log(user);
+    // console.log(user);
     const [title, setTitle] = useState('')
     const [serves, setServes] = useState('')
     const [cook_time, setCook_time] = useState('')
     const [caption, setCaption] = useState('')
     const [tip, setTip] = useState('')
     const [hashtags, setHashtags] = useState([])
+    const [procedure, set_procedure] = useState([])
 
 
 
@@ -46,18 +53,21 @@ function CreateScreen() {
         //backgroound uplaod
         try {
             var chef = await DataStore.query(Chef, user.user_id)
-            console.log('chef... ',chef);
+            // console.log('chef... ',chef);
             const key = await storage.upload(uri)
             // const key = 'testkey'
             //if it fails delete image
             //possile issue with connecting them/general warning im ignroing
             //remove duplacate hastags
+            let hashtags_input = hashtags.map(item => {
+                if (item != '') {
+                    return item
+                }
+            })
             if(isOriginal){
-                console.log('hastoogs..... ',hashtags);
-                let hashtags_input = hashtags.map(item => {
-                    if (item != '') {
-                        return item
-                    }
+
+                const procedure_input = procedure.map((step) => {
+                    return {step}
                 })
 
                 const predicate = c => c.or(
@@ -74,7 +84,7 @@ function CreateScreen() {
                 })
 
                 const new_hashtags = hashtags_input.filter(function(obj) { return hashtag_filter.indexOf(obj) == -1; })
-                console.log('hashtags inout... ', hashtags_input);
+                // console.log('hashtags inout... ', hashtags_input);
 
                 await new_hashtags.forEach( async (name) => {
                     await DataStore.save(
@@ -83,48 +93,73 @@ function CreateScreen() {
                         })
                     )
                 })
-
-                const post = await DataStore.save(
-                    new Post({
-                        title,
-                        caption,
-                        image: key,
-                        type: PostType.ORIGINAL,
-                        chefID: chef.id,
-                        chef,
-                        hashtags: hashtags_input,
-                    })
-                )
+                //pordecure is fualty
                 const recipe = await DataStore.save(
                     new Recipe({
                         title,
                         image: key,
                         serves: parseInt(serves),
                         cook_time: parseInt(cook_time),
+                        n_tips: 0,
                         //igredients
-                        procedure: [{step: 'uyf'},{step: 'khli'}],
+                        procedure: procedure_input,
                         chefID: chef.id,
-                        postID: post.id,
                         chef,
                     })
                 )
-                //is this working?
+                const post = await DataStore.save(
+                    new Post({
+                        title,
+                        caption,
+                        image: key,
+                        type: PostType.ORIGINAL,
+                        n_likes: 0,
+                        n_comments: 0,
+                        n_tips: 0,
+                        rating: 0,
+                        chefID: chef.id,
+                        chef,
+                        hashtags: hashtags_input,
+                        recipe,
+                    })
+                )
                 await DataStore.save(
-                    Post.copyOf(post, updated => {
-                        updated.recipe = recipe
+                    Recipe.copyOf(recipe, updated => {
+                        updated.postID = post.id
                     })
                 )
             } else {
-                const recipe = await DataStore.query(Recipe, '//recipeid')// add real reicpe id
-                const post = await DataStore.query(Post, recipe.postID)
+                const recipe = await DataStore.query(Recipe, route.params.recipe.id)
+                const post = await DataStore.query(Post, route.params.recipe.postID)
+                await DataStore.save(
+                    Chef.copyOf(chef, updated => {
+                        updated.n_remakes = chef.n_remakes + 1
+                    })
+                )
+                await DataStore.save(
+                    Chef.copyOf(post, updated => {
+                        updated.n_tips = chef.n_tips + 1
+                        updated.rating = chef.rating + 50
+                    })
+                )
+                await DataStore.save(
+                    Chef.copyOf(recipe, updated => {
+                        updated.n_tips = chef.n_tips + 1
+                    })
+                )
                 const remake = await DataStore.save(
                     new Post({
                         title,
                         caption,
                         image: key,
                         type: PostType.REMAKE,
+                        n_likes: 0,
+                        n_comments: 0,
+                        n_tips: 0,
+                        rating: 0,
                         chefID: chef.id,
                         chef,
+                        hashtags: post.hashtags,
                         recipe,
                     })
                 )
@@ -142,70 +177,81 @@ function CreateScreen() {
                 )
             }
         } catch (error) {
-            console.log('error!!!... ', error);
+            // console.log('error!!!... ', error);
         }
     }
 
     if (user.isLoggedin) {
         return (
-            <ScrollView contentContainerStyle={{ top:100, alignItems: 'center', justifyContent: 'center' }}>
-                <ImageButton isCamera={true} setUri={setUri} is_profile_picture={false}></ImageButton>
-                <ImageButton isCamera={false} setUri={setUri} is_profile_picture={false}></ImageButton>
-                <ImagePreview uri={uri}></ImagePreview>
-                <CreateButton function={setIsOriginal} input={true} title={'original'}></CreateButton>
-                <CreateButton function={setIsOriginal} input={false} title={'remake'}></CreateButton>
-                {/* add search for recipes and add stash view */}
-                <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={text => setTitle(text)}
-                    placeholder={'title'}
-                    value={title}
-                />
-                {isOriginal && <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={text => setServes(text)}
-                    placeholder={'serves'}
-                    keyboardType={'numeric'}
-                    value={serves}
-                />}
-                {isOriginal && <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={text => setCook_time(text)}
-                    placeholder={'cook time'}
-                    keyboardType={'numeric'}
-                    value={cook_time}
-                />}
-                <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={text => setCaption(text)}
-                    placeholder={'caption'}
-                    value={caption}
-                />
-                {isOriginal && <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={text => setHashtags(toArray(text))}
-                    placeholder={'hashtags'}
-                    value={toString(hashtags)}
-                />}
-                {!isOriginal && <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={text => setTip(text)}
-                    placeholder={'tip'}
-                    value={tip}
-                />}
-                <TouchableOpacity
-                    style={{
-                        height: 100,
-                        width: 200,
-                        borderRadius: 50,
-                        backgroundColor: '#3b9'
-                    }}
-                    onPress={() => onSubmit()}
-                    // onPress={() => DataStore.clear()}
-                >
-                    <Text>upload</Text>
-                </TouchableOpacity>
-            </ScrollView>
+            <>
+                <Header header={'create'}/>
+                <ScrollView contentContainerStyle={{ top:0, alignItems: 'center', justifyContent: 'center' }}>
+                    <ImageButton isCamera={true} setUri={setUri} is_profile_picture={false}></ImageButton>
+                    <ImageButton isCamera={false} setUri={setUri} is_profile_picture={false}></ImageButton>
+                    <ImagePreview uri={uri}></ImagePreview>
+                    <CreateButton function={setIsOriginal} input={true} title={'original'}></CreateButton>
+                    <CreateButton function={setIsOriginal} input={false} title={'remake'}></CreateButton>
+                    {/* add search for recipes and add stash view */}
+                    <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        onChangeText={text => setTitle(text)}
+                        placeholder={'title'}
+                        value={title}
+                    />
+                    {isOriginal && <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        onChangeText={text => setServes(text)}
+                        placeholder={'serves'}
+                        keyboardType={'numeric'}
+                        value={serves}
+                    />}
+                    {isOriginal && <TextInput
+                        style={{ height: 80, borderColor: 'gray', borderWidth: 1 }}
+                        onChangeText={text => set_procedure(text.split(/\r?\n/g))}
+                        multiline={true}
+                        placeholder={'procedure'}
+                        value={multiline_to_string(procedure)}
+                    />}
+                    {isOriginal && <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        onChangeText={text => setCook_time(text)}
+                        placeholder={'cook time'}
+                        keyboardType={'numeric'}
+                        value={cook_time}
+                    />}
+                    <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        onChangeText={text => setCaption(text)}
+                        placeholder={'caption'}
+                        value={caption}
+                    />
+                    {isOriginal && <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        onChangeText={text => setHashtags(toArray(text))}
+                        placeholder={'hashtags'}
+                        value={toString(hashtags)}
+                    />}
+                    {!isOriginal && <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        onChangeText={text => setTip(text)}
+                        placeholder={'tip'}
+                        value={tip}
+                    />}
+                    <TouchableOpacity
+                        style={{
+                            height: 100,
+                            width: 200,
+                            borderRadius: 50,
+                            backgroundColor: '#3b9'
+                        }}
+                        onPress={() => onSubmit()}
+                        activeOpacity={1}
+                        // onPress={() => DataStore.clear()}
+                    >
+                        <Text>upload</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </>
         );
     } else {
         return (
@@ -230,17 +276,31 @@ function CreateButton(props) {
     )
 }
 
+
+
+const multiline_to_string = (array) => {
+    if (array.length == 0) array = ['']
+    console.log('multiline procidure... ',array);
+    let string = ''
+    const last_item = array.pop()
+    array.forEach(element => {
+        string += element + '\r\n'
+    })
+    string += last_item
+    return string
+}
+
 const toArray = (text) => {
     text = text.replace('  ', ' ')
     text = text.replace(/#/g, '')
     const array = text.split(' ')
-    console.log(array);
+    // console.log(array);
     return array
 }
 
 const toString = (array) => {
     if (array.length == 0) array = ['']
-    console.log('huuustagfds... ',array);
+    // console.log('huuustagfds... ',array);
     let add_space = false
     let string = ''
     const last_item = array.pop()

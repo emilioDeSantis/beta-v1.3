@@ -72,8 +72,10 @@ export const createChef = /* GraphQL */ `
           n_likes
           n_comments
           n_tips
+          rating
           chefID
           hashtags
+          ingredientList
           _version
           _deleted
           _lastChangedAt
@@ -161,8 +163,10 @@ export const updateChef = /* GraphQL */ `
           n_likes
           n_comments
           n_tips
+          rating
           chefID
           hashtags
+          ingredientList
           _version
           _deleted
           _lastChangedAt
@@ -250,8 +254,10 @@ export const deleteChef = /* GraphQL */ `
           n_likes
           n_comments
           n_tips
+          rating
           chefID
           hashtags
+          ingredientList
           _version
           _deleted
           _lastChangedAt
@@ -448,8 +454,14 @@ export const createPost = /* GraphQL */ `
       n_likes
       n_comments
       n_tips
+      rating
       chefID
       hashtags
+      ingredientList
+      ingredients {
+        quantity
+        type
+      }
       chef {
         id
         username
@@ -534,8 +546,14 @@ export const updatePost = /* GraphQL */ `
       n_likes
       n_comments
       n_tips
+      rating
       chefID
       hashtags
+      ingredientList
+      ingredients {
+        quantity
+        type
+      }
       chef {
         id
         username
@@ -620,8 +638,14 @@ export const deletePost = /* GraphQL */ `
       n_likes
       n_comments
       n_tips
+      rating
       chefID
       hashtags
+      ingredientList
+      ingredients {
+        quantity
+        type
+      }
       chef {
         id
         username
@@ -749,12 +773,94 @@ export const createStash = /* GraphQL */ `
   ) {
     createStash(input: $input, condition: $condition) {
       id
+      createdAt
       chefID
-      recipeID
+      postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -766,12 +872,94 @@ export const updateStash = /* GraphQL */ `
   ) {
     updateStash(input: $input, condition: $condition) {
       id
+      createdAt
       chefID
-      recipeID
+      postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -783,12 +971,94 @@ export const deleteStash = /* GraphQL */ `
   ) {
     deleteStash(input: $input, condition: $condition) {
       id
+      createdAt
       chefID
-      recipeID
+      postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -800,14 +1070,180 @@ export const createTip = /* GraphQL */ `
   ) {
     createTip(input: $input, condition: $condition) {
       id
+      createdAt
       text
       chefID
       recipeID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      recipe {
+        id
+        title
+        image
+        serves
+        cook_time
+        procedure {
+          step
+        }
+        n_tips
+        chefID
+        postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      remake {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -819,14 +1255,180 @@ export const updateTip = /* GraphQL */ `
   ) {
     updateTip(input: $input, condition: $condition) {
       id
+      createdAt
       text
       chefID
       recipeID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      recipe {
+        id
+        title
+        image
+        serves
+        cook_time
+        procedure {
+          step
+        }
+        n_tips
+        chefID
+        postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      remake {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -838,14 +1440,180 @@ export const deleteTip = /* GraphQL */ `
   ) {
     deleteTip(input: $input, condition: $condition) {
       id
+      createdAt
       text
       chefID
       recipeID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      recipe {
+        id
+        title
+        image
+        serves
+        cook_time
+        procedure {
+          step
+        }
+        n_tips
+        chefID
+        postID
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      remake {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -857,12 +1625,94 @@ export const createLike = /* GraphQL */ `
   ) {
     createLike(input: $input, condition: $condition) {
       id
+      createdAt
       chefID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -874,12 +1724,94 @@ export const updateLike = /* GraphQL */ `
   ) {
     updateLike(input: $input, condition: $condition) {
       id
+      createdAt
       chefID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -891,12 +1823,94 @@ export const deleteLike = /* GraphQL */ `
   ) {
     deleteLike(input: $input, condition: $condition) {
       id
+      createdAt
       chefID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -908,13 +1922,95 @@ export const createComment = /* GraphQL */ `
   ) {
     createComment(input: $input, condition: $condition) {
       id
+      createdAt
       text
       chefID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -926,13 +2022,95 @@ export const updateComment = /* GraphQL */ `
   ) {
     updateComment(input: $input, condition: $condition) {
       id
+      createdAt
       text
       chefID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -944,13 +2122,95 @@ export const deleteComment = /* GraphQL */ `
   ) {
     deleteComment(input: $input, condition: $condition) {
       id
+      createdAt
       text
       chefID
       postID
+      chef {
+        id
+        username
+        image
+        biography
+        n_followers
+        n_following
+        n_remakes
+        followers {
+          nextToken
+          startedAt
+        }
+        following {
+          nextToken
+          startedAt
+        }
+        recipes {
+          nextToken
+          startedAt
+        }
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        title
+        caption
+        image
+        type
+        createdAt
+        n_likes
+        n_comments
+        n_tips
+        rating
+        chefID
+        hashtags
+        ingredientList
+        ingredients {
+          quantity
+          type
+        }
+        chef {
+          id
+          username
+          image
+          biography
+          n_followers
+          n_following
+          n_remakes
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recipe {
+          id
+          title
+          image
+          serves
+          cook_time
+          n_tips
+          chefID
+          postID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -993,6 +2253,54 @@ export const deleteHashtag = /* GraphQL */ `
     $condition: ModelHashtagConditionInput
   ) {
     deleteHashtag(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createIngredient = /* GraphQL */ `
+  mutation CreateIngredient(
+    $input: CreateIngredientInput!
+    $condition: ModelIngredientConditionInput
+  ) {
+    createIngredient(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateIngredient = /* GraphQL */ `
+  mutation UpdateIngredient(
+    $input: UpdateIngredientInput!
+    $condition: ModelIngredientConditionInput
+  ) {
+    updateIngredient(input: $input, condition: $condition) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteIngredient = /* GraphQL */ `
+  mutation DeleteIngredient(
+    $input: DeleteIngredientInput!
+    $condition: ModelIngredientConditionInput
+  ) {
+    deleteIngredient(input: $input, condition: $condition) {
       id
       name
       _version

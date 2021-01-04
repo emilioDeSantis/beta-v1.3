@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import React, {useState, useEffect, useCallback} from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import TriPost from '../components/TriPost';
@@ -25,8 +27,23 @@ import * as global from '../functions/global'
 const RecipeSearchScreen = (props) => {
 
     const fetchPosts = async (page, limit) => {
-        const db_data = await DataStore.query(Post)
-        console.log('data... ',db_data);
+        const predicate = c => c.and(
+            c => {
+                c = c.title("contains", props.search)
+                props.hashtag_filters.forEach(name => {
+                    c = c.hashtags("contains", name)
+                })
+            }
+        )
+        // const predicate = c => (
+        //     c.hashtags("contains", props.hashtag_filters[0])
+        // )
+        const options = {
+            sort: s => s.createdAt(SortDirection.DESCENDING),
+            page,
+            limit,
+        }
+        const db_data = await DataStore.query(Post, predicate, options)
         const posts = await storage.format_posts(db_data)
         const tri_posts = global.format_tri_posts(posts)
         return tri_posts
@@ -38,7 +55,7 @@ const RecipeSearchScreen = (props) => {
     },[index])
 
     return (
-        <View style={style.feed_container}>
+        <View style={[style.feed_container,]}>
             <Stream Article={TriPost} fetchArticles={fetchPosts} search={props.search}/>
         </View>
     );

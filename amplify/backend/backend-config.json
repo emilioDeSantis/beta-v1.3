@@ -1,6 +1,6 @@
 {
   "auth": {
-    "provechobetav1p243224cff": {
+    "provechobetav1p3fa8bc535": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -8,7 +8,7 @@
     }
   },
   "api": {
-    "provechobetav1p2": {
+    "provechobetav1p3": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -16,7 +16,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authprovechobetav1p243224cff"
+              "userPoolId": "authprovechobetav1p3fa8bc535"
             }
           },
           "additionalAuthenticationProviders": []
@@ -25,9 +25,10 @@
     }
   },
   "storage": {
-    "s3304897f9": {
+    "betaV1p3": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
     }
-  }
+  },
+  "function": {}
 }

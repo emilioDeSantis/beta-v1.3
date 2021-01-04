@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import Amplify, { Storage } from 'aws-amplify'
 
 import awsconfig from '../aws-exports'
@@ -35,7 +37,7 @@ const format_post = async (item) => {
         chef,
         key: uuidv4(),
     }
-    console.log("postngfdhg...",post);
+    // console.log("postngfdhg...",post);
     return post
 }
 const getPosts = async (list) => {
@@ -48,7 +50,7 @@ export const format_posts = async (db_data) => {
     return posts
 }
 
-const format_chef = async (item) => {
+export const format_chef = async (item) => {
     const chef_image = await Storage.get(item.image)
     delete item.image
     const chef = {
@@ -66,4 +68,35 @@ export const format_chefs = async (db_data) => {
         return data
     })
     return chefs
+}
+
+
+const getLikes = async (list) => {
+    return Promise.all(list.map(like => format_chef(like.chef)))
+}
+export const format_likes = async (db_data) => {
+    const likes = await getLikes(db_data).then((data) => {
+        return data
+    })
+    return likes
+}
+
+export const format_commment = async (item) => {
+    const comment_chef = await format_chef(item.chef)
+    delete item.chef
+    const comment = {
+        ...item,
+        chef: comment_chef,
+        key: uuidv4(),
+    }
+    return comment
+}
+const getComments = async (list) => {
+    return Promise.all(list.map(comment => format_commment(comment)))
+}
+export const format_comments = async (db_data) => {
+    const comments = await getComments(db_data).then((data) => {
+        return data
+    })
+    return comments
 }

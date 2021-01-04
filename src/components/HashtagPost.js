@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import * as React from 'react';
 import { View, Text, Button, Image, TouchableOpacity } from 'react-native';
 import { StackActions, useNavigation  } from '@react-navigation/native';
@@ -12,7 +14,7 @@ function RecipeButton(props) {
     const navigation = useNavigation();
 
     const go_to_recipe = (post) => {
-        console.log('post!!!... ',post);
+        // console.log('post!!!... ',post);
         //fix db so that post links to recipe
         //get recipe
         //navigate to recipe paghe woth data
@@ -21,8 +23,9 @@ function RecipeButton(props) {
 
     return (
         <TouchableOpacity 
-            style= {style.recipe_button}
+            style= {style.hashtag_recipe_button}
             onPress={() => go_to_recipe(props)}
+            activeOpacity={1}
         >
             <Image
                 style = {{
@@ -38,7 +41,7 @@ function RecipeButton(props) {
 
 function HashPost(props) {
 
-    console.log('props... ', props);
+    // console.log('props... ', props);
     return (
         <View style={style.hashtag_post}>
             <RecipeButton {...props} image={props.image}/>

@@ -91,7 +91,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "chef"
+                        "associatedWith": "chefID"
                     }
                 },
                 "posts": {
@@ -105,7 +105,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "chef"
+                        "associatedWith": "chefID"
                     }
                 }
             },
@@ -122,6 +122,15 @@ export const schema = {
                         "name": "byUsername",
                         "fields": [
                             "username"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byNFollowers",
+                        "fields": [
+                            "n_followers"
                         ]
                     }
                 }
@@ -236,11 +245,18 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "chefID": {
+                    "name": "chefID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "postID": {
                     "name": "postID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "chef": {
@@ -253,7 +269,7 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "chefID"
+                        "targetName": "recipeChefId"
                     }
                 }
             },
@@ -279,6 +295,15 @@ export const schema = {
                         "name": "byPost",
                         "fields": [
                             "postID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTitle",
+                        "fields": [
+                            "title"
                         ]
                     }
                 }
@@ -352,10 +377,42 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "rating": {
+                    "name": "rating",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "chefID": {
+                    "name": "chefID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "hashtags": {
                     "name": "hashtags",
                     "isArray": true,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "ingredientList": {
+                    "name": "ingredientList",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "ingredients": {
+                    "name": "ingredients",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "PostIngredient"
+                    },
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
@@ -370,7 +427,7 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "chefID"
+                        "targetName": "postChefId"
                     }
                 },
                 "recipe": {
@@ -411,6 +468,24 @@ export const schema = {
                             "createdAt"
                         ]
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byType",
+                        "fields": [
+                            "type"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byRating",
+                        "fields": [
+                            "rating"
+                        ]
+                    }
                 }
             ]
         },
@@ -424,6 +499,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "chefID": {
                     "name": "chefID",
                     "isArray": false,
@@ -431,12 +513,38 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "recipeID": {
-                    "name": "recipeID",
+                "postID": {
+                    "name": "postID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "chef": {
+                    "name": "chef",
+                    "isArray": false,
+                    "type": {
+                        "model": "Chef"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "stashChefId"
+                    }
+                },
+                "post": {
+                    "name": "post",
+                    "isArray": false,
+                    "type": {
+                        "model": "Post"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "stashPostId"
+                    }
                 }
             },
             "syncable": true,
@@ -445,6 +553,33 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byChef",
+                        "fields": [
+                            "chefID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPost",
+                        "fields": [
+                            "postID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byDate",
+                        "fields": [
+                            "createdAt"
+                        ]
+                    }
                 }
             ]
         },
@@ -458,6 +593,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "text": {
                     "name": "text",
                     "isArray": false,
@@ -485,6 +627,58 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "chef": {
+                    "name": "chef",
+                    "isArray": false,
+                    "type": {
+                        "model": "Chef"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "tipChefId"
+                    }
+                },
+                "recipe": {
+                    "name": "recipe",
+                    "isArray": false,
+                    "type": {
+                        "model": "Recipe"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "tipRecipeId"
+                    }
+                },
+                "post": {
+                    "name": "post",
+                    "isArray": false,
+                    "type": {
+                        "model": "Post"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "tipPostId"
+                    }
+                },
+                "remake": {
+                    "name": "remake",
+                    "isArray": false,
+                    "type": {
+                        "model": "Post"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "tipRemakeId"
+                    }
                 }
             },
             "syncable": true,
@@ -493,6 +687,42 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byChef",
+                        "fields": [
+                            "chefID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byRecipe",
+                        "fields": [
+                            "recipeID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPost",
+                        "fields": [
+                            "postID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byDate",
+                        "fields": [
+                            "createdAt"
+                        ]
+                    }
                 }
             ]
         },
@@ -503,6 +733,13 @@ export const schema = {
                     "name": "id",
                     "isArray": false,
                     "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -519,6 +756,32 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "chef": {
+                    "name": "chef",
+                    "isArray": false,
+                    "type": {
+                        "model": "Chef"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "likeChefId"
+                    }
+                },
+                "post": {
+                    "name": "post",
+                    "isArray": false,
+                    "type": {
+                        "model": "Post"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "likePostId"
+                    }
                 }
             },
             "syncable": true,
@@ -527,6 +790,33 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byChef",
+                        "fields": [
+                            "chefID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPost",
+                        "fields": [
+                            "postID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byDate",
+                        "fields": [
+                            "createdAt"
+                        ]
+                    }
                 }
             ]
         },
@@ -537,6 +827,13 @@ export const schema = {
                     "name": "id",
                     "isArray": false,
                     "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -560,6 +857,32 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "chef": {
+                    "name": "chef",
+                    "isArray": false,
+                    "type": {
+                        "model": "Chef"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "commentChefId"
+                    }
+                },
+                "post": {
+                    "name": "post",
+                    "isArray": false,
+                    "type": {
+                        "model": "Post"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "commentPostId"
+                    }
                 }
             },
             "syncable": true,
@@ -568,6 +891,33 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byChef",
+                        "fields": [
+                            "chefID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPost",
+                        "fields": [
+                            "postID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byDate",
+                        "fields": [
+                            "createdAt"
+                        ]
+                    }
                 }
             ]
         },
@@ -606,6 +956,42 @@ export const schema = {
                     }
                 }
             ]
+        },
+        "Ingredient": {
+            "name": "Ingredient",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Ingredients",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byName",
+                        "fields": [
+                            "name"
+                        ]
+                    }
+                }
+            ]
         }
     },
     "enums": {
@@ -629,7 +1015,26 @@ export const schema = {
                     "attributes": []
                 }
             }
+        },
+        "PostIngredient": {
+            "name": "PostIngredient",
+            "fields": {
+                "quantity": {
+                    "name": "quantity",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "type": {
+                    "name": "type",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
         }
     },
-    "version": "7f0683a2160d592ae7b5925697e5544e"
+    "version": "eaa7cf967398563594be31c5fb8fce42"
 };

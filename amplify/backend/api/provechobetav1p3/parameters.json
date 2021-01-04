@@ -1,10 +1,10 @@
 {
-    "AppSyncApiName": "provechobetav1p2",
+    "AppSyncApiName": "provechobetav1p3",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": false,
     "AuthCognitoUserPoolId": {
         "Fn::GetAtt": [
-            "authprovechobetav1p243224cff",
+            "authprovechobetav1p3fa8bc535",
             "Outputs.UserPoolId"
         ]
     }

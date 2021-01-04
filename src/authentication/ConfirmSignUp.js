@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import React, {useState} from 'react';
 import { StyleSheet, Text, Button, View, TouchableOpacity, TextInput } from 'react-native';
 
@@ -28,24 +30,29 @@ const ConfirmSignUp = (props) => {
         try {
             await Auth.confirmSignUp( props.state.username, code )
             const user = await Auth.signIn(props.state.username, props.state.password)
-            console.log('uathuserretrued...', user);
+            // console.log('uathuserretrued...', user);
             const key = await storage.upload(uri)
             // const key = 'fake key'
             const chef = await DataStore.save(
                 new Chef({
                     username: props.state.username,
                     biography,
+                    n_followers: 0,
+                    n_following: 0,
+                    n_remakes: 0,
                     image: key,
                 })
             );
-            console.log('new chef ... ',chef);
+            const formatted_chef = await storage.format_chef(chef)
+            // console.log('new chef ... ',chef);
             //make error hanlding work
             await props.onStateChange('signedIn', user)
-            //warning comers dorn here?
+            //warning comers fornm here?
             setUser({
                 isLoggedin: true,
                 username: chef.username,
                 id: chef.id,
+                chef: formatted_chef,
             }) 
             props.setState({
                 ...props.state,

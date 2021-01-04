@@ -7,7 +7,7 @@ const PostType = {
   "REMAKE": "REMAKE"
 };
 
-const { Chef, Follow, Recipe, Post, Stash, Tip, Like, Comment, Hashtag, Step } = initSchema(schema);
+const { Chef, Follow, Recipe, Post, Stash, Tip, Like, Comment, Hashtag, Ingredient, Step, PostIngredient } = initSchema(schema);
 
 export {
   Chef,
@@ -19,6 +19,8 @@ export {
   Like,
   Comment,
   Hashtag,
+  Ingredient,
   PostType,
-  Step
+  Step,
+  PostIngredient
 };

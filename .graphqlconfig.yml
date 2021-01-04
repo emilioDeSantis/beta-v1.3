@@ -1,6 +1,6 @@
 projects:
-  provechobetav1p2:
-    schemaPath: amplify/backend/api/provechobetav1p2/build/schema.graphql
+  provechobetav1p3:
+    schemaPath: amplify/backend/api/provechobetav1p3/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:

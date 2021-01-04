@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import React, {useState} from 'react';
 import { StyleSheet, Text, Button, View, TouchableOpacity, TextInput } from 'react-native';
 import { validateUsername, validateEmail, validatePassword} from '../functions/validation'

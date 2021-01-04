@@ -1,7 +1,10 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import style from '../style';
+import SearchIcon from '../assets/icons/search_icon.js'
 
 const TopTabBar = ({ state, descriptors, navigation }) => {
     return (
@@ -45,8 +48,9 @@ const TopTabBar = ({ state, descriptors, navigation }) => {
                         onPress={onPress}
                         onLongPress={onLongPress}
                         style={style.home_bar_button}
+                        activeOpacity={1}
                     >
-                        <Text style={{ color: isFocused ? '#f98' : '#333536' }}>
+                        <Text style={[style.top_bar_text, style.home_top_bar_text]}>
                             {label}
                         </Text>
                         {/* {isFocused && <View style={{backgroundColor: '#f94', position: 'absolute', height: 2, width: 40, top: 80, }}/>} */}
@@ -58,11 +62,11 @@ const TopTabBar = ({ state, descriptors, navigation }) => {
                 accessibilityRole="button"
                 onPress={() => navigation.navigate('search')}
                 style={style.search_button}
+                activeOpacity={1}
             >
-                <Image
-                    style={{width:20, height: 20,}}
-                    source={require('../assets/icons/search_icon_yellow.png')}
-                />
+                <View style={style.round_button}>
+                    <SearchIcon/>
+                </View>
             </TouchableOpacity>
         </View>
     );

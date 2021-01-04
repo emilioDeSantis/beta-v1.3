@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import style from '../style';
@@ -43,9 +45,10 @@ const ChefTabBar = ({ state, descriptors, navigation }) => {
                         testID={options.tabBarTestID}
                         onPress={onPress}
                         onLongPress={onLongPress}
-                        style={style.chef_tab_bar_button}
+                        style={isFocused ? style.chef_tab_bar_button_focused : style.chef_tab_bar_button}
+                        activeOpacity={1}
                     >
-                        <Text style={{ color: isFocused ? '#f98' : '#333536' }}>
+                        <Text style={style.chef_tab_text}>
                             {label}
                         </Text>
                     </TouchableOpacity>

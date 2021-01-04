@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 export function validateEmail(email) {
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
         return 'Invalid email format';

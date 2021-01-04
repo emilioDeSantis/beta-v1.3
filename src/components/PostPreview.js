@@ -1,3 +1,5 @@
+//Copyright 2020, Provecho, All rights reserved.
+
 import * as React from 'react';
 import { View, Text, Button } from 'react-native';
 import { StackActions, useNavigation  } from '@react-navigation/native';

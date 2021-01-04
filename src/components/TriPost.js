@@ -12,7 +12,10 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import * as storage from '../functions/storage'
 import * as global from '../functions/global'
+<<<<<<< HEAD
 import { useUser, useSetUser } from '../context'
+=======
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 
 import awsconfig from '../aws-exports';
 Amplify.configure({
@@ -36,8 +39,12 @@ function RecipeButton(props) {
     return (
         <TouchableOpacity 
             style= {style.tri_recipe_button}
+<<<<<<< HEAD
             onPress={() => global.go_to_recipe(props,user.chef.id,navigation)}
             activeOpacity={1}
+=======
+            onPress={() => global.go_to_recipe(props,navigation)}
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
         >
             <Image
                 style = {{
@@ -54,7 +61,11 @@ function RecipeButton(props) {
 
 function TriPost(props,user,is_rotated,article_props) {
 
+<<<<<<< HEAD
     const is_tri = typeof article_props == "undefined" ? false : article_props.is_tri;
+=======
+    console.log('tripost porps... ', props);
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
     return (
         <View style={is_rotated ? style.tri_post_column : style.tri_post_row}>
         {/* <View style={style.tri_post_row}> */}

@@ -11,7 +11,10 @@ import { PostType, Chef, Recipe, Post, Tip, Comment, Like, Stash, Follow } from 
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import * as storage from '../functions/storage'
+<<<<<<< HEAD
 import * as global from '../functions/global'
+=======
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 import LikeModal from '../components/LikeModal'
 
 import awsconfig from '../aws-exports';
@@ -43,12 +46,20 @@ const fetchPosts = async (page, limit, user_id) => {
         page,
         limit,
     }
+<<<<<<< HEAD
     // const db_data = await DataStore.query(Post, c => c.chefID("eq", "bde28bbe-0167-4d17-bbcf-9cc5ade9f0e0"), options)
     const db_data = await DataStore.query(Post, predicate, options)
     // const db_data = await DataStore.query(Post)
     // console.log('data... ',db_data);
     const unformatted_posts = await storage.format_posts(db_data)
     const posts = await global.format_posts(unformatted_posts, user_id)
+=======
+    const db_data = await DataStore.query(Post, c => c.chefID("eq", "7e47fd2c-1cfd-4e8d-bda6-3114146171db"), options)
+    // const db_data = await DataStore.query(Post, predicate, options)
+    // const db_data = await DataStore.query(Post)
+    console.log('data... ',db_data);
+    const posts = await storage.format_posts(db_data)
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
     // console.log('posts form db... ',posts);
     return posts
 }
@@ -60,6 +71,7 @@ const FeedScreenComp = () => {
             <Stream Article={PostComp} fetchArticles={fetchPosts}/>
         </View>
     )
+<<<<<<< HEAD
 }
 
 const Stack = createStackNavigator();
@@ -77,6 +89,25 @@ const FeedScreen = () => {
     )
 }
 
+=======
+}
+
+const Stack = createStackNavigator();
+
+const FeedScreen = () => {
+    return (
+        <Stack.Navigator mode="modal" headerMode={'none'} transparentCard={true}>
+            <Stack.Screen name="top screen">
+                {(props) => <FeedScreenComp {...props}/>}
+            </Stack.Screen>
+            <Stack.Screen name="like modal">
+                {(props) => <LikeModal {...props}/>}
+            </Stack.Screen>
+        </Stack.Navigator>
+    )
+}
+
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 export default FeedScreen;
 
 

@@ -65,7 +65,10 @@ export declare class Post {
   readonly n_likes?: number;
   readonly n_comments?: number;
   readonly n_tips?: number;
+<<<<<<< HEAD
   readonly rating?: number;
+=======
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
   readonly chefID: string;
   readonly hashtags?: (string | null)[];
   readonly ingredientList?: (string | null)[];

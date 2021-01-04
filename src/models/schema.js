@@ -377,6 +377,7 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+<<<<<<< HEAD
                 "rating": {
                     "name": "rating",
                     "isArray": false,
@@ -384,6 +385,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+=======
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
                 "chefID": {
                     "name": "chefID",
                     "isArray": false,
@@ -1036,5 +1039,9 @@ export const schema = {
             }
         }
     },
+<<<<<<< HEAD
     "version": "eaa7cf967398563594be31c5fb8fce42"
+=======
+    "version": "9f0c6074112d9d6c6c626ecd18c5ff89"
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 };

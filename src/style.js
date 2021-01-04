@@ -420,7 +420,11 @@ const style = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
+<<<<<<< HEAD
         top: '20%',
+=======
+        top: '90%',
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
         backgroundColor: '#fff0',
     },
     like_modal_tab_bar: {
@@ -434,6 +438,7 @@ const style = StyleSheet.create({
     },
     like_modal_tab_bar_button: {
         flex: 1,
+<<<<<<< HEAD
         backgroundColor: white,
         alignItems: 'center',
         justifyContent: 'center',
@@ -451,12 +456,16 @@ const style = StyleSheet.create({
     follow_modal_tab_bar_button: {
         flex: 1,
         backgroundColor: white,
+=======
+        backgroundColor: '#fff',
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
         alignItems: 'center',
         justifyContent: 'center',
 
     },
     stash_button: {
         position: 'absolute',
+<<<<<<< HEAD
         backgroundColor: white,
         width: 100,
         height: '100%',
@@ -470,6 +479,12 @@ const style = StyleSheet.create({
         width: 100,
         height: '100%',
         paddingTop: 25,
+=======
+        backgroundColor: '#fff',
+        width: 100,
+        height: '100%',
+        paddingTop: 55,
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
         paddingRight: 30,
         right: 0,
     },
@@ -484,11 +499,16 @@ const style = StyleSheet.create({
     },
     instructions_tab_bar_button: {
         flex: 1,
+<<<<<<< HEAD
         backgroundColor: white,
+=======
+        backgroundColor: '#fff',
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
         alignItems: 'center',
         justifyContent: 'center',
 
     },
+<<<<<<< HEAD
     comment_container: {
         height: 200,
         width,
@@ -565,6 +585,8 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     }
+=======
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 });
 
 export default style

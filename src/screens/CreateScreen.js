@@ -93,6 +93,7 @@ function CreateScreen() {
                         })
                     )
                 })
+<<<<<<< HEAD
                 //pordecure is fualty
                 const recipe = await DataStore.save(
                     new Recipe({
@@ -109,6 +110,11 @@ function CreateScreen() {
                 )
                 const post = await DataStore.save(
                     new Post({
+=======
+
+                const recipe = await DataStore.save(
+                    new Recipe({
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
                         title,
                         caption,
                         image: key,
@@ -123,6 +129,22 @@ function CreateScreen() {
                         recipe,
                     })
                 )
+<<<<<<< HEAD
+=======
+                const post = await DataStore.save(
+                    new Post({
+                        title,
+                        caption,
+                        image: key,
+                        type: PostType.ORIGINAL,
+                        chefID: chef.id,
+                        chef,
+                        hashtags: hashtags_input,
+                        recipe,
+                    })
+                )
+                //is this working?
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
                 await DataStore.save(
                     Recipe.copyOf(recipe, updated => {
                         updated.postID = post.id

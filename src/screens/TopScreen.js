@@ -11,7 +11,10 @@ import { PostType, Chef, Recipe, Post, Tip, Comment, Like, Stash, Follow } from 
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import * as storage from '../functions/storage'
+<<<<<<< HEAD
 import * as global from '../functions/global'
+=======
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 import LikeModal from '../components/LikeModal'
 
 import awsconfig from '../aws-exports';
@@ -71,6 +74,7 @@ const TopScreen = () => {
     )
 }
 
+<<<<<<< HEAD
 export default TopScreen;
 
 
@@ -79,3 +83,6 @@ export default TopScreen;
 
 
 
+=======
+export default TopScreen;
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6

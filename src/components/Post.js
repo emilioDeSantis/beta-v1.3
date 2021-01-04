@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 //Copyright 2020, Provecho, All rights reserved.
 
 import React, {useState} from 'react';
 import { View, Text, Button, Image, TouchableOpacity, Dimensions } from 'react-native';
 import InvertibleScrollView from 'react-native-invertible-scroll-view';
+=======
+import * as React from 'react';
+import { View, Text, Button, Image, TouchableOpacity } from 'react-native';
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 import { StackActions, useNavigation, useNavigationBuilder, NavigationActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import style from '../style';
@@ -13,6 +18,7 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import * as storage from '../functions/storage'
 import * as global from '../functions/global'
+<<<<<<< HEAD
 import { useUser, useSetUser } from '../context'
 import LikeIcon from '../assets/icons/like_icon.js'
 import CommentIcon from '../assets/icons/comment_icon.js'
@@ -27,22 +33,43 @@ Amplify.configure({
         disabled: true,
     },
 });
+=======
+
+import awsconfig from '../aws-exports';
+Amplify.configure({
+    ...awsconfig,
+    Analytics: {
+        disabled: true,
+    },
+});
+
+import ChefThumbnail from './ChefThumbnail'
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 
 import ChefThumbnail from './ChefThumbnail'
 import { ScrollView } from 'react-native-gesture-handler';
 var width = Dimensions.get('window').width;
 
+<<<<<<< HEAD
 function RecipeButton(props) {
 
     const navigation = useNavigation();
 
     const user = useUser()
+=======
+    const navigation = useNavigation();
+
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 
     return (
         <TouchableOpacity 
             style= {style.recipe_button}
+<<<<<<< HEAD
             onPress={() => global.go_to_recipe(props,user.chef.id,navigation)}
             activeOpacity={1}
+=======
+            onPress={() => global.go_to_recipe(props,navigation)}
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
         >
             <Image
                 style = {{
@@ -75,6 +102,7 @@ const Remakes = (props) => {
 }
 
 const LikeButton = (props) => {
+<<<<<<< HEAD
     const [is_liked, set_is_liked] = useState(props.is_liked)
     const navigation = useNavigation()
     const user = useUser()
@@ -88,6 +116,9 @@ const LikeButton = (props) => {
         global.unlike(user.user_id, props.id)
         set_is_liked(false)
     }
+=======
+    const navigation = useNavigation()
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 
     return(
         <View style={style.like_button_container}>
@@ -109,12 +140,17 @@ const LikeButton = (props) => {
                 activeOpacity={1}
                 style= {style.number}
                 onPress={() => {
+<<<<<<< HEAD
                     navigation.navigate('like modal', {
                         tab:'likes',
                         post: props,
                     })
                 }}
                 activeOpacity={1}
+=======
+                    navigation.navigate('like modal', 'likes')
+                }}
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
             >
                 <Text style={style.number_text}>{props.n_likes}</Text>
             </TouchableOpacity> 
@@ -137,10 +173,14 @@ const CommentButton = (props) => {
                 activeOpacity={1}
                 style= {style.number}
                 onPress={() => {
+<<<<<<< HEAD
                     navigation.navigate('like modal',{
                         tab:'comments',
                         post: props,
                     })
+=======
+                    navigation.navigate('like modal', 'comments')
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
                 }}
             >
                 <Text style={style.number_text}>{props.n_comments}</Text>
@@ -163,12 +203,17 @@ const TipButton = (props) => {
             <TouchableOpacity 
                 style= {style.number}
                 onPress={() => {
+<<<<<<< HEAD
                     navigation.navigate('like modal',{
                         tab:'tips',
                         post: props,
                     })
                 }}
                 activeOpacity={1}
+=======
+                    navigation.navigate('like modal', 'tips')
+                }}
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
             >
                 <Text style={style.number_text}>{props.n_tips}</Text>
             </TouchableOpacity> 
@@ -177,9 +222,14 @@ const TipButton = (props) => {
 }
 
 function PostComp(props) {
+<<<<<<< HEAD
 //get it to scoll whiel formatted correctly
 //make sure it doesnt load until it neads to
     // console.log('props... ', props);
+=======
+
+    console.log('props... ', props);
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
     return (
         //remkaes inside of post
         // <View style={style.post}>

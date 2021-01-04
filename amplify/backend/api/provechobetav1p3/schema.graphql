@@ -49,6 +49,10 @@ type Recipe
     n_tips: Int
     chefID: ID!
     postID: ID
+<<<<<<< HEAD:amplify/backend/api/provechobetav1p3/schema.graphql
+=======
+    # stashes: [Stash] @connection(keyName: "byRecipe", fields: ["id"])
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6:amplify/backend/api/provechobetav1p2/schema.graphql
     # tips: [Tip] @connection(keyName: "byRecipe", fields: ["id"])
     chef: Chef! @connection
 }
@@ -101,9 +105,15 @@ type Stash
     id: ID!
     createdAt: AWSDateTime!
     chefID: ID!
+<<<<<<< HEAD:amplify/backend/api/provechobetav1p3/schema.graphql
     postID: ID!
     chef: Chef! @connection
     post: Post! @connection
+=======
+    recipeID: ID!
+    # chef: Chef! @connection
+    # recipe: Recipe! @connection
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6:amplify/backend/api/provechobetav1p2/schema.graphql
 }
 
 type Tip 
@@ -119,10 +129,17 @@ type Tip
     chefID: ID!
     recipeID: ID!
     postID: ID!
+<<<<<<< HEAD:amplify/backend/api/provechobetav1p3/schema.graphql
     chef: Chef! @connection
     recipe: Recipe! @connection
     post: Post! @connection
     remake: Post! @connection
+=======
+    # chef: Chef! @connection
+    # recipe: Recipe! @connection
+    # post: Post! @connection
+    # remake: Post! @connection
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6:amplify/backend/api/provechobetav1p2/schema.graphql
 }
 
 type Like 
@@ -135,8 +152,13 @@ type Like
     createdAt: AWSDateTime!
     chefID: ID!
     postID: ID!
+<<<<<<< HEAD:amplify/backend/api/provechobetav1p3/schema.graphql
     chef: Chef! @connection
     post: Post! @connection
+=======
+    # chef: Chef! @connection
+    # post: Post! @connection
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6:amplify/backend/api/provechobetav1p2/schema.graphql
 }
 
 type Comment 
@@ -150,8 +172,13 @@ type Comment
     text: String!
     chefID: ID!
     postID: ID!
+<<<<<<< HEAD:amplify/backend/api/provechobetav1p3/schema.graphql
     chef: Chef! @connection
     post: Post! @connection
+=======
+    # chef: Chef! @connection
+    # post: Post! @connection
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6:amplify/backend/api/provechobetav1p2/schema.graphql
 }
 
 type Hashtag 

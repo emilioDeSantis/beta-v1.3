@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 //Copyright 2020, Provecho, All rights reserved.
 
+=======
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 import * as React from 'react';
 import { View, Text, Button, Image, TouchableOpacity } from 'react-native';
 import { StackActions, useNavigation, useNavigationBuilder, NavigationActions } from '@react-navigation/native';
@@ -9,11 +12,17 @@ import Amplify, { Storage } from 'aws-amplify'
 import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore'
 import { PostType, Chef, Recipe, Post, Tip, Comment, Like, Stash, Follow } from '../models'
 import 'react-native-get-random-values';
+<<<<<<< HEAD
 import { useUser, useSetUser } from '../context'
 import { v4 as uuidv4 } from 'uuid';
 import * as storage from './storage'
 
 
+=======
+import { v4 as uuidv4 } from 'uuid';
+import * as storage from './storage'
+
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 import awsconfig from '../aws-exports';
 Amplify.configure({
     ...awsconfig,
@@ -61,6 +70,7 @@ export const format_hashtags = (hashtags) => {
     return hashtags_with_key
 }
 
+<<<<<<< HEAD
 export const go_to_recipe = async(post,user_id,navigation) => {
     const db_data = await DataStore.query(Chef, post.recipe.chefID);
     const chef = await storage.format_chef(db_data)
@@ -238,4 +248,11 @@ export const format_recipe = async (item, user_id) => {
         is_stashed,
     }
     return recipe
+=======
+export const go_to_recipe = async(post,navigation) => {
+    const db_data = await DataStore.query(Chef, post.recipe.chefID);
+    const chef = await storage.format_chef(db_data)
+    const recipe = await storage.format_chef(post.recipe)
+    navigation.navigate('recipe',{recipe, chef})
+>>>>>>> b627f3be9b2dc1bcab9996805e1a7667880f9ba6
 }
